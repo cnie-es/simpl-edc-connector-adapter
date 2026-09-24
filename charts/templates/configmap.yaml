@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  log4j2-app.xml: |
+    {{- tpl (.Files.Get "files/log4j2-app.xml") . | nindent 4 }}

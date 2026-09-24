@@ -1,0 +1,82 @@
+{"properties": [
+  {
+    "name": "openapi-config.servers",
+    "type": "java.lang.String",
+    "description": "A description for 'openapi-config.servers'"
+  },
+  {
+    "name": "federated-catalogue.tier2-gateway.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'federated-catalogue.tier2-gateway.uri'"
+  },
+  {
+    "name": "federated-catalogue.tier2-gateway.path-prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'federated-catalogue.tier2-gateway.path-prefix'"
+  },
+  {
+    "name": "participant.onboarding.authority.tls.uri",
+    "type": "java.lang.String",
+    "description": "A description for 'participant.onboarding.authority.tls.uri'"
+  },
+  {
+    "name": "web.mvc.cors.allowed-origins",
+    "type": "java.lang.String",
+    "description": "A description for 'web.mvc.cors.allowed-origins'"
+  },
+  {
+    "name": "web.mvc.bearer-token.required",
+    "type": "java.lang.String",
+    "description": "A description for 'web.mvc.bearer-token.required'"
+  },
+  {
+    "name": "web.mvc.bearer-token.allowed-paths",
+    "type": "java.lang.String",
+    "description": "A description for 'web.mvc.bearer-token.allowed-paths'"
+  },
+  {
+    "name": "edc-connector.base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'edc-connector.base-url'"
+  },
+  {
+    "name": "edc-connector.participant.id",
+    "type": "java.lang.String",
+    "description": "A description for 'edc-connector.participant.id'"
+  },
+  {
+    "name": "edc-connector.tier2-base-url",
+    "type": "java.lang.String",
+    "description": "A description for 'edc-connector.tier2-base-url'"
+  },
+  {
+    "name": "authentication-provider.api-url",
+    "type": "java.lang.String",
+    "description": "A description for 'authentication-provider.api-url'"
+  },
+  {
+    "name": "feign.client.config.default.logger-level",
+    "type": "java.lang.String",
+    "description": "A description for 'feign.client.config.default.logger-level'"
+  },
+  {
+    "name": "feign.client.config.default.connect-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'feign.client.config.default.connect-timeout'"
+  },
+  {
+    "name": "feign.client.config.default.read-timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'feign.client.config.default.read-timeout'"
+  },
+  {
+    "name": "openapi-config.title",
+    "type": "java.lang.String",
+    "description": "A description for 'openapi-config.title'"
+  },
+  {
+    "name": "edc-connector.deprovisioning.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'edc-connector.deprovisioning.enabled'"
+  }
+]}

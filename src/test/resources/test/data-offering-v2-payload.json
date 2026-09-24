@@ -1,0 +1,62 @@
+{
+	"sdJson": {
+		"@context": {
+			"gax-validation": "http://w3id.org/gaia-x/validation#",
+			"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+			"sh": "http://www.w3.org/ns/shacl#",
+			"simpl": "http://w3id.org/gaia-x/simpl#",
+			"skos": "http://www.w3.org/2004/02/skos/core#",
+			"xsd": "http://www.w3.org/2001/XMLSchema#"
+		},
+		"@id": "did:web:registry.gaia-x.eu:DataOffering:3mwO1pOqDQ_fID9jc9Az1TS5JKIS_eng_0006",
+		"rdf:type": {
+			"@id": "simpl:DataOffering"
+		},
+		"simpl:billingSchema": {
+			"rdf:type": {
+				"@id": "simpl:BillingSchema"
+			},
+			"simpl:billingSchemaDocument": "Billing Schema 1"
+		},
+		"simpl:contractTemplate": {
+			"rdf:type": {
+				"@id": "simpl:ContractTemplate"
+			},
+			"simpl:contractTemplateDocument": "Contract Template 1"
+		},
+		"simpl:generalServiceProperties": {
+			"rdf:type": {
+				"@id": "simpl:GeneralServiceProperties"
+			},
+			"simpl:description": "test eng 2025",
+			"simpl:inLanguage": "en",
+			"simpl:name": "test eng 2025"
+		},
+		"simpl:dataProperties": {
+			"rdf:type": {
+				"@id": "simpl:DataProperties"
+			},
+			"simpl:format": "test"
+		},
+		"simpl:servicePolicy": {
+			"rdf:type": {
+				"@id": "simpl:ServicePolicy"
+			},
+			"simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"3mwO1pOqDQ_fID9jc9Az1TS5JKIS_oinfKHe\",\"assigner\":{\"uid\":\"provider\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"a5bedff0-e3e3-4806-8c83-9a97002fae4e\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"3mwO1pOqDQ_fID9jc9Az1TS5JKIS_oinfKHe\",\"assignee\":{\"uid\":\"CONSUMER\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/search\"],\"constraint\":[]}]}",
+			"simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"3mwO1pOqDQ_fID9jc9Az1TS5JKIS_oinfKHe\",\"assigner\":{\"uid\":\"provider\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"47b65a0c-d19d-4350-9225-13208ef649ff\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"3mwO1pOqDQ_fID9jc9Az1TS5JKIS_oinfKHe\",\"assignee\":{\"uid\":\"CONSUMER\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[]}]}"
+		},
+		"simpl:providerInformation": {
+			"rdf:type": {
+				"@id": "simpl:ProviderInformation"
+			},
+			"simpl:contact": "test@test.com",
+			"simpl:providedBy": "test"
+		}
+	},
+	"properties": {
+		"resourceAddress": {
+			"templateId": "5",
+			"value": "{\"type\":\"MinioS3\", \"endpoint\":\"https://minio.simpl-europe.eu\", \"bucketName\":\"provider-bucket\", \"objectName\":\"example-s3.txt\"}"
+		}
+	}
+}

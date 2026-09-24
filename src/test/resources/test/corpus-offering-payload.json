@@ -1,0 +1,211 @@
+{
+    "@context": {
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "dct": "http://purl.org/dc/terms/",
+        "dpv": "https://w3id.org/dpv#",
+        "edval": "http://w3id.org/gaia-x/edval#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "gax-validation": "http://w3id.org/gaia-x/validation#",
+        "ms": "http://w3id.org/meta-share/meta-share/",
+        "omtd": "http://w3id.org/meta-share/omtd-share/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "sh": "http://www.w3.org/ns/shacl#",
+        "simpl": "http://w3id.org/gaia-x/simpl#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "did:web:registry.gaia-x.eu:CorpusOffering:c093292f-f583-4f6f-86bb-5d848f433334",
+    "dct:conformsTo": {
+        "@id": "https://simpl.example.org/schema/corpus-offeringShape",
+        "@type": "dct:Standard",
+        "dct:description": "Schema for corpus offerings in the edval dataspace",
+        "dct:hasVersion": "1.0.0",
+        "dct:title": "Corpus Offering Schema"
+    },
+    "edval:corpusAsset": {
+        "dcat:distribution": {
+            "dcat:byteSize": {
+                "@type": "xsd:integer",
+                "@value": 2110372
+            },
+            "dcat:packageFormat": {
+                "@id": "omtd:zip"
+            },
+            "dct:format": {
+                "@id": "omtd:xml"
+            },
+            "ms:size": {
+                "ms:amount": {
+                    "@type": "xsd:float",
+                    "@value": "828597"
+                },
+                "ms:sizeUnit": {
+                    "@id": "ms:tokens"
+                },
+                "rdf:type": {
+                    "@id": "ms:Size"
+                }
+            },
+            "rdf:type": {
+                "@id": "dcat:Distribution"
+            }
+        },
+        "dcat:keyword": [
+            {
+                "@language": "en",
+                "@value": "reviews"
+            },
+            {
+                "@language": "en",
+                "@value": "Spanish"
+            },
+            {
+                "@language": "en",
+                "@value": "aspect term"
+            },
+            {
+                "@language": "en",
+                "@value": "aspect-based sentiment analysis"
+            }
+        ],
+        "dcat:version": "1.0.0",
+        "dct:description": {
+            "@language": "en",
+            "@value": "The ABSITA dataset contains 4,121 reviews written in Italian and collected from the website booking.com. Reviews are annotated according to seven aspects: pulizia (cleanliness), comfort, servizi (amenities), staff, qualita-prezzo (value), wifi (wireless Internet connection) and posizione (location). For each aspect, the polarity (positive, negative) of its mention has been annotated. The positive and negative polarities are annotated independently, thus for each aspect four sentiment classes are possible: positive (positive=1, negative=0), negative (positive=0, negative=1), neutral (positive=0, negative=0), mixed (positive=1, negative=1).The dataset has been created and used in the context of the ABSITA task (http://sag.art.uniroma2.it/absita/), organised as part of EVALITA 2018 (http://www.evalita.it/2018)."
+        },
+        "dct:title": {
+            "@language": "en",
+            "@value": "ABSITA dataset1"
+        },
+        "ms:anonymized": {
+            "@id": "ms:yesA"
+        },
+        "ms:dataProtectionPrincipleApplied": {
+            "@id": "ms:dataMinimisation"
+        },
+        "ms:isDocumentedBy": {
+            "ms:citationText": {
+                "@language": "en",
+                "@value": "Felice Dell'Orletta and Malvina Nissim. Overview of the EVALITA 2018 Cross-Genre Gender Prediction (GxG) Task. In Tommaso Caselli, Nicole Novielli, Viviana Patti, and Paolo Rosso, editors, Proceedings of Sixth Evaluation Campaign of Natural Language Processing and Speech Tools for Italian. Final Workshop (EVALITA 2018), Turin, Italy. CEUR.org, 2018."
+            },
+            "rdf:type": {
+                "@id": "foaf:Document"
+            }
+        },
+        "ms:language": {
+            "ms:languageCode": {
+                "@id": "ms:spa"
+            },
+            "ms:languageVarietyName": "catalan",
+            "ms:region": {
+                "@id": "ms:ES"
+            },
+            "ms:script": {
+                "@id": "ms:Latn"
+            },
+            "rdf:type": {
+                "@id": "ms:Language"
+            }
+        },
+        "ms:lingualityType": {
+            "@id": "ms:monolingual"
+        },
+        "ms:lrType": {
+            "@id": "ms:corpus1"
+        },
+        "ms:mediaType": {
+            "@id": "ms:text"
+        },
+        "ms:personalDataIncluded": {
+            "@id": "ms:yesP"
+        },
+        "ms:sensitiveDataIncluded": {
+            "@id": "ms:yesS"
+        },
+        "rdf:type": {
+            "@id": "ms:Corpus"
+        }
+    },
+    "edval:isPublicOffering": {
+        "@type": "xsd:boolean",
+        "@value": true
+    },
+    "rdf:type": {
+        "@id": "edval:CorpusOffering"
+    },
+    "simpl:assetProperties": {
+      "rdf:type": {
+        "@id": "simpl:AssetProperties"
+      },
+      "simpl:providerDataAddress": "{\"type\":\"IonosS3\",\"region\":\"de\",\"storage\":\"s3-eu-central-1.ionoscloud.com\",\"bucketName\":\"simpl-provider\",\"blobName\":\"european_health_data.csv\",\"keyName\":\"test-key-name\",\"accessKey\":\"EAAAAHyfc8cK5j1BN5hUNMJYDdlCxobfnHPqU6eNVTyLT-bfsQAAAAECBMdGAAAAAAIEx0a5g-ikIzsvMq36rZOq-wRU\",\"secretKey\":\"vqRTZC8cHl2rzGIBQ+Ux+QXtwpZPcDeLhJhmBL6wUdBagBGS4ob0n4NsuYm2qglh\"}"
+    },
+    "simpl:contractTemplate": {
+        "rdf:type": {
+            "@id": "simpl:ContractTemplate"
+        },
+        "simpl:contractTemplateDocument": "Contract Template 1",
+        "simpl:contractTemplateHashAlg": "SHA256",
+        "simpl:contractTemplateHashValue": "22275fe551e7a16f5f2c1cc10d39a534f547323d877109d98b8e8730047bc5ed",
+        "simpl:contractTemplateURL": "https://files.dataprovider03.telefonicadev.com/static/contract/ContractTemplate1.json"
+    },
+    "simpl:dataProperties": {
+        "rdf:type": {
+            "@id": "simpl:DataProperties"
+        },
+        "simpl:format": "xml"
+    },
+    "simpl:edcConnector": {
+        "simpl:providerEndpointURL": "https://tls.participant.dataprovider03.telefonicadev.com/edc"
+    },
+    "simpl:edcRegistration": {
+        "simpl:accessPolicyId": "0a89dcb3-17d6-4c26-9108-318b87aa13d8",
+        "simpl:assetId": "8ebdc817-2bb2-4702-ab72-d56d16e9ff75",
+        "simpl:contractDefinitionId": "00e1c6ce-d87c-4c2b-9fbb-5000b1ae576b",
+        "simpl:servicePolicyId": "fe43e6fb-b249-4ef8-a95d-98da5cdc7f7b"
+    },
+    "simpl:generalServiceProperties": {
+        "rdf:type": {
+            "@id": "simpl:GeneralServiceProperties"
+        },
+        "simpl:description": "The ABSITA dataset contains 4,121 reviews written in Italian and collected from the website booking.com. Reviews are annotated according to seven aspects: pulizia (cleanliness), comfort, servizi (amenities), staff, qualita-prezzo (value), wifi (wireless Internet connection) and posizione (location). For each aspect, the polarity (positive, negative) of its mention has been annotated. The positive and negative polarities are annotated independently, thus for each aspect four sentiment classes are possible: positive (positive=1, negative=0), negative (positive=0, negative=1), neutral (positive=0, negative=0), mixed (positive=1, negative=1).The dataset has been created and used in the context of the ABSITA task (http://sag.art.uniroma2.it/absita/), organised as part of EVALITA 2018 (http://www.evalita.it/2018).",
+        "simpl:inLanguage": "es",
+        "simpl:name": "ABSITA dataset1",
+        "simpl:offeringType": "data",
+        "simpl:serviceAccessPoint": {
+            "@type": "xsd:anyURI",
+            "@value": "https://service.test.com"
+        },
+        "simpl:sharingMethodId": "MINIO_S3"
+    },
+    "simpl:offeringPrice": {
+        "rdf:type": {
+            "@id": "simpl:OfferingPrice"
+        },
+        "simpl:currency": "EUR",
+        "simpl:license": {
+            "@type": "xsd:anyURI",
+            "@value": "https://licence.test.com"
+        },
+        "simpl:price": {
+            "@type": "xsd:decimal",
+            "@value": 0
+        },
+        "simpl:priceType": "free"
+    },
+    "simpl:providerInformation": {
+        "rdf:type": {
+            "@id": "simpl:ProviderInformation"
+        },
+        "simpl:contact": "test@test.com",
+        "simpl:providedBy": "019d0543-7115-739f-829a-99ca5edcba2c",
+        "simpl:signature": "signature"
+    },
+    "simpl:servicePolicy": {
+        "rdf:type": {
+            "@id": "simpl:ServicePolicy"
+        },
+        "simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"8ebdc817-2bb2-4702-ab72-d56d16e9ff75\",\"assigner\":{\"uid\":\"dataprovider03\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"16c101e7-9008-4e31-a230-30545b370d3d\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"8ebdc817-2bb2-4702-ab72-d56d16e9ff75\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/consume\"],\"constraint\":[]}]}",
+        "simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"8ebdc817-2bb2-4702-ab72-d56d16e9ff75\",\"assigner\":{\"uid\":\"dataprovider03\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"f2905982-dd93-49c7-ba06-5cb5d44dc3c6\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"8ebdc817-2bb2-4702-ab72-d56d16e9ff75\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/count\",\"operator\":\"http://www.w3.org/ns/odrl/2/lteq\",\"rightOperand\":\"1\"}]}]}"
+    }
+}

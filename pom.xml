@@ -1,0 +1,344 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.12</version>
+    </parent>
+
+    <!-- Fork coordinates: this derivative work is published under a namespace controlled by
+         CNIE-ES. The upstream namespace eu.europa.ec.simpl is kept only where it correctly
+         identifies a third-party component, never to identify this modified artifact.
+         EUPL-1.2 Art. 5, Legal Protection. -->
+    <groupId>es.cnie.simpl.sdtooling</groupId>
+    <artifactId>simpl-edc-connector-adapter</artifactId>
+    <!-- Maven 4 requires a non-env expression here; override via -Drevision=... or CI property -->
+    <version>${revision}</version>
+    <name>edc-connector-adapter (CNIE-ES fork)</name>
+    <description>EDC Connector Adapter - modified version of SIMPL edcconnectoradapter (upstream commit 0a9cd20), modified by the EDNEL-RIOJA project team for CNIE-ES between 2026-05-04 and 2026-09-10. See NOTICE.EDNEL.md.</description>
+    <url>https://github.com/cnie-es/simpl-edc-connector-adapter</url>
+
+    <licenses>
+        <license>
+            <name>European Union Public Licence v. 1.2 (EUPL-1.2)</name>
+            <url>https://eupl.eu/1.2/en/</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>EDNEL-RIOJA project team</name>
+            <organization>CNIE-ES</organization>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/cnie-es/simpl-edc-connector-adapter.git</connection>
+        <developerConnection>scm:git:git@github.com:cnie-es/simpl-edc-connector-adapter.git</developerConnection>
+        <url>https://github.com/cnie-es/simpl-edc-connector-adapter</url>
+    </scm>
+
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Default for local builds; release: mvn -Drevision=${PROJECT_RELEASE_VERSION} ... -->
+        <revision>0.0.1-SNAPSHOT</revision>
+        <java.version>21</java.version>
+
+        <!-- artifacts -->
+        <data1-common.version>0.3.0</data1-common.version>
+        <simpl-data1-common.version>1.13.0</simpl-data1-common.version>
+        <simpl-data1-common-adapter.version>1.8.0</simpl-data1-common-adapter.version>
+
+        <!-- plugins -->
+        <belgif-rest-guide-validator-maven-plugin.version>2.1.0</belgif-rest-guide-validator-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+        <!-- upgraded from 2.5.0 to 2.7.1 to fix fortify issues (org.apache.jena:jena-core@3.17.0) -->
+		<license-maven-plugin.version>2.7.1</license-maven-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+
+    </properties>
+
+    <repositories>
+
+        <repository>
+            <id>gitlab-simpl-common-logging</id>
+            <url>https://code.europa.eu/api/v4/projects/897/packages/maven</url>
+        </repository>
+
+        <repository>
+            <id>gitlab-simpl-data1-common</id>
+            <url>https://code.europa.eu/api/v4/projects/1092/packages/maven</url>
+        </repository>
+        <repository>
+            <id>gitlab-simpl-data1-common-adapter</id>
+            <url>https://code.europa.eu/api/v4/projects/1120/packages/maven</url>
+        </repository>
+
+    </repositories>
+
+    <dependencyManagement>
+	    <dependencies>
+	        
+	         <!-- to solve 1.5.0 vulberability: https://jira.simplprogramme.eu/browse/SIMPL-18632 (spring-cloud-starter-openfeign 4.3.0) -->
+			<dependency>
+			    <groupId>commons-fileupload</groupId>
+			    <artifactId>commons-fileupload</artifactId>
+			    <version>1.6.0</version>
+			</dependency>
+			
+			<!-- to fix fortify vulnerability issue CVE-2025-48924 for version 3.17.0 (springdoc-openapi-starter-webmvc-ui 2.8.8) -->
+	        <dependency>
+	            <groupId>org.apache.commons</groupId>
+	            <artifactId>commons-lang3</artifactId>
+	            <version>3.18.0</version>
+	        </dependency>
+            
+            <!-- to fix fortify vulnerability issue CVE-2025-68161 for version 2.24.3 (spring-boot-starter-log4j2 3.5.12) -->
+	        <dependency>
+	            <groupId>org.apache.logging.log4j</groupId>
+	            <artifactId>log4j-bom</artifactId>
+	            <version>2.25.3</version>
+	            <!-- BOM -->
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	        
+	    </dependencies>
+	</dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>eu.europa.ec.simpl</groupId>
+            <artifactId>simpl-data1-common</artifactId>
+            <version>${simpl-data1-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.europa.ec.simpl</groupId>
+            <artifactId>simpl-data1-common-adapter</artifactId>
+            <version>${simpl-data1-common-adapter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+	    <dependency>
+		    <groupId>org.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <classifier>jakarta</classifier>
+		</dependency>
+	    
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-cache</artifactId>
+	        <exclusions>
+                <!-- disable logback logging -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+	    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+            	<exclusion>
+            		<groupId>com.vaadin.external.google</groupId>
+    				<artifactId>android-json</artifactId>
+            	</exclusion>
+                <!-- disable logback logging -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>edc-connector-adapter</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version><!--$NO-MVN-MAN-VER$-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>eu.europa.ec.simpl.edcconnectoradapter.EDCConnectorAdapterApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- to enable sonarqube scanning in pipeline -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                    	<exclude>**/*Application.class</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- OpenAPI file validation -->
+            <!--
+                mvn belgif-rest-guide-validator:validate
+            -->
+            <plugin>
+                <groupId>io.github.belgif.rest.guide.validator</groupId>
+                <artifactId>belgif-rest-guide-validator-maven-plugin</artifactId>
+                <version>${belgif-rest-guide-validator-maven-plugin.version}</version>
+                <configuration>
+                    <skipOnErrors>true</skipOnErrors>
+                    <outputTypes>
+                        <outputType>JSON</outputType>
+                        <outputType>LOG4J</outputType>
+                    </outputTypes>
+                    <jsonOutputFile>${project.build.directory}/openapi-belgif-report.json</jsonOutputFile>
+                    <files>
+                        <file>${project.basedir}/openapi.json</file>
+                    </files>
+                </configuration>
+            </plugin>
+
+           	<!-- Spotless & Palantir code formatting -->
+            <!--
+                1) mvn spotless:check (optional) to see the report
+                2) mvn spotless:apply
+            -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.44.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <java>
+                        <palantirJavaFormat/>
+                    </java>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>download-licenses</id>
+                        <configuration>
+                            <licensesOutputFile>${basedir}/THIRD_PARTY_LICENCES.xml</licensesOutputFile>
+                        </configuration>
+                        <goals>
+                            <goal>download-licenses</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>add-third-party</id>
+                        <configuration>
+                            <sortArtifactByName>true</sortArtifactByName>
+                            <outputDirectory>${basedir}</outputDirectory>
+                            <thirdPartyFilename>THIRD_PARTY_LICENCES.md</thirdPartyFilename>
+                            <fileTemplate>${basedir}/src/main/resources/third-party-file.ftl</fileTemplate>
+                            <force>true</force>
+                        </configuration>
+                        <goals>
+                            <goal>add-third-party</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+
+</project>

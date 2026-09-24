@@ -1,0 +1,190 @@
+{
+    "@context": {
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "dct": "http://purl.org/dc/terms/",
+        "dpv": "https://w3id.org/dpv#",
+        "edval": "http://w3id.org/gaia-x/edval#",
+        "foaf": "http://xmlns.com/foaf/0.1/",
+        "gax-validation": "http://w3id.org/gaia-x/validation#",
+        "ms": "http://w3id.org/meta-share/meta-share/",
+        "omtd": "http://w3id.org/meta-share/omtd-share/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "sh": "http://www.w3.org/ns/shacl#",
+        "simpl": "http://w3id.org/gaia-x/simpl#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "did:web:registry.gaia-x.eu:ModelOffering:d60daad8-cbd3-48b4-99ae-0d08a9951bf9",
+    "dct:conformsTo": {
+        "@id": "https://simpl.example.org/schema/model-offeringShape",
+        "@type": "dct:Standard",
+        "dct:description": "Schema for model offerings in the edval dataspace",
+        "dct:hasVersion": "1.0.0",
+        "dct:title": "Model Offering Schema"
+    },
+    "edval:isPublicOffering": {
+        "@type": "xsd:boolean",
+        "@value": true
+    },
+    "edval:modelAsset": {
+        "dcat:distribution": {
+            "dcat:byteSize": {
+                "@type": "xsd:integer",
+                "@value": 1181116006
+            },
+            "dct:format": {
+                "@id": "omtd:text"
+            },
+            "ms:size": {
+                "ms:amount": {
+                    "@type": "xsd:float",
+                    "@value": "1.1"
+                },
+                "ms:sizeUnit": {
+                    "@id": "ms:gb"
+                },
+                "rdf:type": {
+                    "@id": "ms:Size"
+                }
+            },
+            "rdf:type": {
+                "@id": "dcat:Distribution"
+            }
+        },
+        "dcat:keyword": [
+            {
+                "@language": "en",
+                "@value": "word embedding"
+            },
+            {
+                "@language": "en",
+                "@value": "Wikipedia"
+            },
+            {
+                "@language": "en",
+                "@value": "English"
+            }
+        ],
+        "dcat:version": "1.0.0",
+        "dct:description": {
+            "@language": "en",
+            "@value": "Word2Vec model for English."
+        },
+        "dct:title": {
+            "@language": "en",
+            "@value": "Word2Vec embeddings for English"
+        },
+        "ms:anonymized": {
+            "@id": "ms:noA"
+        },
+        "ms:domain": {
+            "@id": "ms:law"
+        },
+        "ms:language": {
+            "ms:languageCode": {
+                "@id": "ms:spa"
+            },
+            "rdf:type": {
+                "@id": "ms:Language"
+            }
+        },
+        "ms:lingualityType": {
+            "@id": "ms:monolingual"
+        },
+        "ms:lrType": {
+            "@id": "ms:MLModel"
+        },
+        "ms:mediaType": {
+            "@id": "ms:text"
+        },
+        "ms:modelFunction": {
+            "@id": "omtd:AnnotationOfMultiWordUnits"
+        },
+        "ms:personalDataIncluded": {
+            "@id": "ms:unknownP"
+        },
+        "ms:sensitiveDataIncluded": {
+            "@id": "ms:unknownS"
+        },
+        "rdf:type": {
+            "@id": "ms:MLModel"
+        }
+    },
+    "rdf:type": {
+        "@id": "edval:ModelOffering"
+    },
+    "simpl:assetProperties": {
+        "rdf:type": {
+            "@id": "simpl:AssetProperties"
+        }
+    },
+    "simpl:contractTemplate": {
+        "rdf:type": {
+            "@id": "simpl:ContractTemplate"
+        },
+        "simpl:contractTemplateDocument": "Contract Template 1",
+        "simpl:contractTemplateHashAlg": "SHA256",
+        "simpl:contractTemplateHashValue": "22275fe551e7a16f5f2c1cc10d39a534f547323d877109d98b8e8730047bc5ed",
+        "simpl:contractTemplateURL": "https://files.dataprovider03.telefonicadev.com/static/contract/ContractTemplate1.json"
+    },
+    "simpl:dataProperties": {
+        "rdf:type": {
+            "@id": "simpl:DataProperties"
+        },
+        "simpl:format": "csv"
+    },
+    "simpl:edcConnector": {
+        "simpl:providerEndpointURL": "https://tls.participant.dataprovider03.telefonicadev.com/edc"
+    },
+    "simpl:edcRegistration": {
+        "simpl:accessPolicyId": "7bd18eb6-b750-498a-9d2d-5649dcc07160",
+        "simpl:assetId": "1fea5443-caa8-42d8-ba28-4a7ae32896c8",
+        "simpl:contractDefinitionId": "fa8b0df1-72cf-4feb-b5d2-512a2da0ec30",
+        "simpl:servicePolicyId": "eccfa122-ee55-434f-9670-2c7c9965ac7c"
+    },
+    "simpl:generalServiceProperties": {
+        "rdf:type": {
+            "@id": "simpl:GeneralServiceProperties"
+        },
+        "simpl:description": "Word2Vec model for English.",
+        "simpl:inLanguage": "en",
+        "simpl:name": "Word2Vec embeddings for English",
+        "simpl:offeringType": "data",
+        "simpl:serviceAccessPoint": {
+            "@type": "xsd:anyURI",
+            "@value": "https://service.test.com"
+        },
+        "simpl:sharingMethodId": "MINIO_S3"
+    },
+    "simpl:offeringPrice": {
+        "rdf:type": {
+            "@id": "simpl:OfferingPrice"
+        },
+        "simpl:currency": "EUR",
+        "simpl:license": {
+            "@type": "xsd:anyURI",
+            "@value": "https://licence.test.com"
+        },
+        "simpl:price": {
+            "@type": "xsd:decimal",
+            "@value": 0
+        },
+        "simpl:priceType": "free"
+    },
+    "simpl:providerInformation": {
+        "rdf:type": {
+            "@id": "simpl:ProviderInformation"
+        },
+        "simpl:contact": "test@test.com",
+        "simpl:providedBy": "019d0543-7115-739f-829a-99ca5edcba2c",
+        "simpl:signature": "signature"
+    },
+    "simpl:servicePolicy": {
+        "rdf:type": {
+            "@id": "simpl:ServicePolicy"
+        },
+        "simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"1fea5443-caa8-42d8-ba28-4a7ae32896c8\",\"assigner\":{\"uid\":\"dataprovider03\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"6fb32d19-7253-4fd0-90d6-bab0e4077633\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"1fea5443-caa8-42d8-ba28-4a7ae32896c8\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/consume\"],\"constraint\":[]}]}",
+        "simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"1fea5443-caa8-42d8-ba28-4a7ae32896c8\",\"assigner\":{\"uid\":\"dataprovider03\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"f5436dcc-5b01-4f0b-8515-e45b5d34aeb4\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"1fea5443-caa8-42d8-ba28-4a7ae32896c8\",\"assignee\":{\"uid\":\"EDVAL_PARTICIPANT\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/count\",\"operator\":\"http://www.w3.org/ns/odrl/2/lteq\",\"rightOperand\":\"1\"}]}]}"
+    }
+}

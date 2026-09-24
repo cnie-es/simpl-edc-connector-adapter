@@ -1,0 +1,265 @@
+info:
+  title: EDC Connector Adapter API
+  description: |-
+    APIs enable seamless communication with the EDC Connector, supporting a modular architecture that separates the responsibilities of asset/policy registration, contract negotiation and data consumption. This set of APIs facilitates secure, standardized, and traceable data exchange between providers and consumers in federated data ecosystems.
+
+    ## Business Context
+
+    The EDC Connector Adapter acts as an intermediary between provider-side and consumer-side applications and the EDC Connector. It enables:
+
+    1. Registration and enrichment of assets and policies on the provider side.
+
+    2. Discovery of data offers from provider connector catalog.
+
+    3. Negotiation of usage contracts based on defined policies.
+
+    4. Initiation and monitoring of data transfers.
+
+
+    ### Key Actors
+
+    - **Provider**: Publishes data assets, defines contract terms, and registers policies.
+
+    - **Consumer**: Searches for offers, negotiates contracts, and consumes data.
+
+    ### Typical Flow
+
+    1. Retrieve Participant Identity
+
+    2. Register and Enrich Assets and Policies
+
+    3. Retrieve Asset Details
+
+    4. Initiate Contract Negotiation
+
+    5. Check Contract Status
+
+    6. Initiate Data Transfer
+
+    7. Monitor Transfer Status
+  contact:
+    name: Simpl Programme
+    url: https://simpl-programme.ec.europa.eu/
+    email: cnect-simpl@ec.europa.eu
+  license:
+    name: European Union Public License (EUPL) 1.2
+    url: https://interoperable-europe.ec.europa.eu/sites/default/files/custom-page/attachment/eupl_v1.2_en.pdf
+  version: "1.0"
+servers:
+- url: https://edc-connector-adapter.dev.simpl-europe.eu/v2
+security:
+- NoAuth: []
+openapi: 3.0.1
+components:
+  securitySchemes:
+    NoAuth:
+      type: apiKey
+      description: Placeholder scheme used when security is not required
+      name: X-No-Auth
+      in: header
+  schemas:
+    InputObject:
+      type: object
+      properties:
+        in:
+          type: string
+          enum:
+          - body
+          - path
+          - query
+          - header
+        name:
+          type: string
+        value:
+          type: object
+    InternalServerErrorProblem:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        href:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        additionalProperties:
+          type: object
+          additionalProperties:
+            type: object
+    BadRequestProblem:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        href:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputValidationIssue'
+        additionalProperties:
+          type: object
+          additionalProperties:
+            type: object
+    InputValidationIssue:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        href:
+          type: string
+          format: uri
+        title:
+          type: string
+        detail:
+          type: string
+        in:
+          type: string
+          enum:
+          - body
+          - path
+          - query
+          - header
+        name:
+          type: string
+        value:
+          type: object
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputObject'
+        additionalProperties:
+          type: object
+          additionalProperties:
+            type: object
+paths:
+  /selfDescriptions/enriched:
+    post:
+      tags:
+      - Self Description
+      summary: Register a SD json and return it enriched by EDC registration data
+      description: Registers asset and policies into the provider EDC, creates a contract definition on EDC connector
+      operationId: register
+      parameters:
+      - name: offeringType
+        in: query
+        description: offering type
+        required: true
+        schema:
+          type: string
+          enum:
+          - APPLICATION
+          - DATA
+          - INFRASTRUCTURE
+        example: DATA
+      requestBody:
+        description: Request body containing SD JSON-LD and additional properties
+        content:
+          application/json:
+            schema:
+              required:
+              - properties
+              - sdJson
+              type: object
+              example:
+                sdJson:
+                  '@context': http://www.w3.org/ns/odrl.jsonld
+                  '@type': Set
+                  assigner:
+                    role: http://www.w3.org/ns/odrl/2/assigner
+                    uid: provider
+                  permission:
+                  - action:
+                    - http://simpl.eu/odrl/actions/search
+                    assignee:
+                      role: http://www.w3.org/ns/odrl/2/assignee
+                      uid: CONSUMER
+                    constraint:
+                    - leftOperand: http://www.w3.org/ns/odrl/2/dateTime
+                      operator: http://www.w3.org/ns/odrl/2/gteq
+                      rightOperand: 2024-08-01T00:00:00Z
+                    - leftOperand: http://www.w3.org/ns/odrl/2/dateTime
+                      operator: http://www.w3.org/ns/odrl/2/lteq
+                      rightOperand: 2024-08-31T23:59:59Z
+                    target: ""
+                  profile: http://www.w3.org/ns/odrl/2/odrl.jsonld
+                  target: ""
+                  uid: 68777919-f260-4305-9c41-d4266ac0a639
+                properties:
+                  resourceAddress:
+                    templateId: "5"
+                    value: '{"type":"MinioS3", "endpoint":"https://minio.simpl-europe.eu", "bucketName":"provider-bucket", "objectName":"example-s3.txt"}'
+        required: true
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/InternalServerErrorProblem'
+              examples:
+                Internal Server Error Example:
+                  description: Internal Server Error Example
+                  value:
+                    type: urn:problem-type:simpl:internalServerError
+                    title: Internal Server Error
+                    status: 500
+                    detail: Unexpected internal error
+                    instance: /selfDescriptions/enriched
+        "400":
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestProblem'
+              examples:
+                Bad Request Error Example:
+                  description: Bad Request Error Example
+                  value:
+                    type: urn:problem-type:simpl:validationError
+                    title: Invalid payload
+                    status: 400
+                    detail: missing required arguments
+                    instance: /selfDescriptions/enriched
+                    issues:
+                    - detail: Field 'json-ld' must not be empty
+        "200":
+          description: Successfully registered SD json
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                SD json file registered:
+                  description: SD json file registered
+                  value:
+                    '@context':
+                      dcat: http://www.w3.org/ns/dcat#
+                      edc: https://w3id.org/edc/v0.0.1/ns/
+                    '@id': urn:uuid:9b220110-4482-2113-a786-6ace13b000ee
+                    '@type': dcat:Dataset
+                    edc:assetId: asset-9876
+                    edc:contractDefinitionId: contract-def-45678
+                    edc:providerId: simpl-edc-provider-01

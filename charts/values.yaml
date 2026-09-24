@@ -1,0 +1,195 @@
+# service port
+servicePort: 8080
+
+# container port
+containerPort: 8080
+
+# specify 'dev' for dev environment or 'int' for integration environment
+domainUrlEnvIdentifier: dev
+
+# domain associated with Dev Cluster (don't modify it)
+domain: dev.simpl-europe.eu
+
+log4j:
+  config:
+    # to override log4j2.component.properties entry named log4j2.configurationFile
+    # to add log4j2-app.xml created by configmap.yaml into the folder config mounted by deplyment.yaml
+    file: classpath:log4j2.xml,file:/config/log4j2-app.xml
+  # config file monitoring interval for hot changes (seconds)
+  monitorInterval: 10
+  level:
+    # logging level for all logs excluding the specific ones
+    root: INFO
+    # logging level for application components only
+    app: INFO
+    # logging level for feign clients only
+    feign: INFO
+
+# comma separated list of servers url to be used by swagger
+openapiConfig:
+  servers: https://edc-connector-adapter.dev.simpl-europe.eu
+
+openTelemetry:
+  # disables the OpenTelemetry SDK (true on local dev)
+  disabled: true
+  # used to identify the environment
+  environment: local-dev
+  # used to identify the service (to append '-provider' or '-consumer' suffix)
+  service: edc-connector-adapter
+  otlpExporter:
+    # collector endpoint for the OTLP exporter
+    endpoint: http://collector.common01.dev.simpl-europe.eu
+    # protocol used by the OTLP exporter (http/protobuf or grpc)
+    protocol: http/protobuf
+  # context propagation type
+  propagators: tracecontext
+
+# resources configuration
+resources:
+  requests:
+    cpu: "100m"
+    memory: "0Gi"
+  limits:
+    cpu: "1000m"
+    memory: "2Gi"
+
+# replicas used ONLY when autoscaling.enabled = false
+replicaCount: 1
+
+# horizontal Pod Autoscaler configuration
+autoscaling:
+  enabled: false                  # Set true to enable HPA
+  minReplicas: 1                  # Minimum number of pods
+  maxReplicas: 5                  # Maximum number of pods
+  targetCPUUtilizationPercentage: 75  # CPU % threshold based on requests
+  # Optional: memory autoscaling (uncomment if needed)
+  # targetMemoryUtilizationPercentage: 80
+  # behavior:
+    #   scaleUp:
+    #     stabilizationWindowSeconds: 60
+    #     policies:
+    #       - type: Percent
+    #         value: 100
+    #         periodSeconds: 60
+    #   scaleDown:
+    #     stabilizationWindowSeconds: 300
+    #     policies:
+    #       - type: Percent
+    #         value: 100
+    #         periodSeconds: 60
+
+ingress:
+  # enable ingress only for development purpose
+  # on production environment this service must be exposted through the participant tier1 gateway only
+  enabled: false
+  clusterIssuer: dev-prod
+  ingressClass: nginx
+
+image:
+  # Published image of this fork. Override for builds published elsewhere, e.g.
+  # --set image.repository=ghcr.io/<owner>/data1-edcconnectoradapter
+  repository: "ghcr.io/cnie-es/data1-edcconnectoradapter"
+  pullPolicy: IfNotPresent
+  # Empty means .Chart.AppVersion. Set it to deploy a specific build, e.g. a commit SHA tag.
+  tag: ""
+  # Names of pre-created image pull secrets. Required while the image is private.
+  pullSecrets: []
+
+
+web:
+  mvc:
+    cors:
+      # optional allowed origins for cross calls (list separated by comma or * to allow all origins)
+      # if empty no cross calls are allowed
+      allowedOrigins: ""
+
+    bearerToken:
+      # if true a JWT token must be present as Bearer in any request
+      required: true
+      # optional list (comma separated) of allowed paths (ant matcher expressions) to skip JWT token check (ex: actuator health paths)
+      allowedPaths: "/actuator/health/*"
+
+# application profile (provider or consumer)
+profile: provider
+
+#########################################################################
+# 'provider' profile only
+#########################################################################
+
+edcConnector:
+  # url to the provider EDC connector (internal service)
+  baseUrl: https://edc-provider.dev.simpl-europe.eu
+  
+  # tier2 url to the provider EDC connector service behind the TLS gateway (ending with the route context name)
+  # this will be enriched in the SD json by enrichAndValidate API
+  #tier2BaseUrl: https://tls.participant.provider.dev.simpl-europe.eu/edc
+  tier2BaseUrl: https://edc-provider.dev.simpl-europe.eu/protocol
+  
+  # the participant id to be used as assigner in policies as expected by the EDC connector on contract negotiation
+  # this value can be obtained from the EDC connector configuration of the dataprovider participant
+  # in OVH: deployment > config > env > edc.participant.id
+  participantId: provider
+  
+  
+#########################################################################
+# 'consumer' profile only
+#########################################################################
+
+#appJarPath: "/home/simpluser/app.jar"
+
+#edcConnector:
+#  # url to the consumer EDC connector management port (internal service)
+#  baseUrl: http://simpl-edc-service:29193
+#  apiKey: foo-value
+
+
+#kafka:
+#  # urls list to KAFKA bootstrap servers (comma separated if more than one)
+#  bootstrapServers: localhost:9092
+
+#  # consumers group id
+#  consumer:
+#    groupId: contract_consumption
+#  topics:
+#     # topic used for checking the transfer status
+#     transferStatus: contract_consumption.transfer_status
+#     # topic used for transfer deprovisioning after transfer completion
+#     transferDeprovisioning: contract_consumption.transfer_deprovisioning
+#     # topic used to publish the enriched transfer records (consumed by the monitoring module into transfer-records-*)
+#     # optional: if not set the default of application-consumer.properties is kept
+#     transferRecord: contract_consumption.transfer_record
+#     # topic used to publish the enriched contract-negotiation records (ingested into contract-records-*)
+#     # optional: if not set the default of application-consumer.properties is kept
+#     contractRecord: contract_consumption.contract_record
+
+#  # can be one of: SASL_PLAINTEXT (if blank no auth enabled)
+#  auth:
+#    type: SASL_PLAINTEXT
+#  # flag to stop application if kafka broker is not available
+#  fatalIfBrokerNotAvailable: true
+
+
+# authentication-provider used to resolve the verified participant identities (id + organization) that label the
+# enriched transfer/contract records emitted to Kafka. Without baseUrl the resolution is disabled and the records
+# carry providerId/consumerId but no providerName/consumerName.
+#participant:
+#  authApi:
+#    # base url of the own participant authentication-provider (internal service)
+#    baseUrl: http://authentication-provider:8080
+#    # path resolving a counterparty identity by the FQDN of its connector endpoint
+#    pingPath: /tier1/v2/ping
+#    # path resolving this participant own identity
+#    selfPath: /tier1/v2/participant
+#    cache:
+#      # how long a resolved identity is reused (identities are stable, so this can be long)
+#      ttlSeconds: 1800
+#      # how long a failed resolution is remembered before being retried; keep it short, it only exists to avoid
+#      # hammering the authentication-provider while it is unavailable
+#      negativeTtlSeconds: 60
+
+
+#vault:
+#  secretEngine: "{{ .Values.secrets.secretEngine }}"
+#  role: "{{ .Values.secrets.role }}"
+#  secretPath: "{{ .Values.secrets.secretEngine }}/data/{{ .Values.cluster.namespace }}-edc-connector-adapter"
+#  service: "https://secrets.{{ .Values.namespaceTag.common }}.{{ .Values.domainSuffix }}"

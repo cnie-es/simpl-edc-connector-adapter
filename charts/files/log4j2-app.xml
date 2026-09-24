@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is used to configure the configmap during the deployment of the application. -->
+<!-- The values are injected from the values.yaml file. -->
+
+<Configuration status="WARN" monitorInterval="{{ .Values.log4j.monitorInterval | default 30 }}">
+
+    <Loggers>
+
+        <Root level="{{ .Values.log4j.level.root }}"/>
+
+        <Logger name="eu.europa.ec.simpl" level="{{ .Values.log4j.level.app }}"/>
+
+        <Logger name="feign" level="{{ .Values.log4j.level.feign }}" includeLocation="true" additivity="false">
+            <AppenderRef ref="DefaultConsole"/>
+        </Logger>
+
+    </Loggers>
+
+</Configuration>

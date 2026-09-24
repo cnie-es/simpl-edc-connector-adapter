@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- To apply the configuration for deployment, copy changes in the charts/files/log4j2-app.xml -->
+
+<Configuration status="WARN">
+
+    <Loggers>
+
+        <Root level="INFO"/>
+
+        <Logger name="eu.europa.ec.simpl" level="DEBUG"/>
+
+        <Logger name="feign" level="DEBUG" includeLocation="true" additivity="false">
+            <AppenderRef ref="DefaultConsole"/>
+        </Logger>
+
+    </Loggers>
+
+</Configuration>

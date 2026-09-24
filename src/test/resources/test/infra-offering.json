@@ -1,0 +1,95 @@
+{
+	"@context": {
+		"gax-validation": "http://w3id.org/gaia-x/validation#",
+		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"sh": "http://www.w3.org/ns/shacl#",
+		"simpl": "http://w3id.org/gaia-x/simpl#",
+		"skos": "http://www.w3.org/2004/02/skos/core#",
+		"xsd": "http://www.w3.org/2001/XMLSchema#"
+	},
+	"@id": "did:web:registry.gaia-x.eu:InfrastructureOffering:azaiKcCEU9rtQDylXJdoFSiBttQ4g_KX90fG",
+	"simpl:billingSchema": {
+		"simpl:billingSchemaDocument": "Billing Schema 1",
+		"rdf:type": {
+			"@id": "simpl:BillingSchema"
+		}
+	},
+	"simpl:contractTemplate": {
+		"simpl:contractTemplateDocument": "Contract Template 1",
+		"rdf:type": {
+			"@id": "simpl:ContractTemplate"
+		}
+	},
+	"simpl:generalServiceProperties": {
+		"simpl:description": "dummy",
+		"simpl:inLanguage": "en",
+		"simpl:name": "dummy",
+		"simpl:serviceAccessPoint": {
+			"@type": "xsd:anyURI",
+			"@value": "http://link.com"
+		},
+		"rdf:type": {
+			"@id": "simpl:GeneralServiceProperties"
+		}
+	},
+    "simpl:assetProperties": {
+      "rdf:type": {
+        "@id": "simpl:AssetProperties"
+      },
+      "simpl:providerDataAddress": "{\"type\":\"Infrastructure\",\"deploymentScriptId\":\"D1AF1AFd-948c-1052-F551-aFEeFD8b1Deb\",\"provisioningAPI\":\"http://provisionerApiLink.com\"}"
+    },
+	"simpl:infrastructureProperties": {
+		"simpl:externalUrl": {
+			"@type": "xsd:anyURI",
+			"@value": "http://link.com"
+		},
+		"simpl:instanceType": "dummy",
+		"simpl:osAndImage": "dummy",
+		"simpl:regionAndAz": "eu-west-1",
+		"simpl:resourceType": "vm",
+		"simpl:securitySettings": "dummy",
+		"simpl:storageType": "dummy",
+		"rdf:type": {
+			"@id": "simpl:InfrastructureProperties"
+		}
+	},
+	"simpl:offeringPrice": {
+		"simpl:currency": "EUR",
+		"simpl:license": {
+			"@type": "xsd:anyURI",
+			"@value": "http://link.com"
+		},
+		"simpl:price": {
+			"@type": "xsd:decimal",
+			"@value": 100
+		},
+		"simpl:priceType": "commercial",
+		"rdf:type": {
+			"@id": "simpl:OfferingPrice"
+		}
+	},
+	"simpl:providerInformation": {
+		"simpl:contact": "contract@email.com",
+		"simpl:providedBy": "dummy",
+		"simpl:signature": "dummy",
+		"rdf:type": {
+			"@id": "simpl:ProviderInformation"
+		}
+	},
+	"simpl:servicePolicy": {
+		"simpl:access-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"azaiKcCEU9rtQDylXJdoFSiBttQ4g_KX90fG\",\"assigner\":{\"uid\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEOyq5p2RG2IcSgXqVNyWPrTJ7rtwzf5he5BvI/BZX2KaGvv3NoFnBMGCbNDvaRz+Cwu3xCHwrq2WtuZaX/zVgow==\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"35bdd910-f9f8-48cd-8b3b-159aefc9b0db\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"azaiKcCEU9rtQDylXJdoFSiBttQ4g_KX90fG\",\"assignee\":{\"uid\":\"CONSUMER\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://simpl.eu/odrl/actions/consume\"],\"constraint\":[]}]}",
+		"simpl:usage-policy": "{\"profile\":\"http://www.w3.org/ns/odrl/2/odrl.jsonld\",\"target\":\"azaiKcCEU9rtQDylXJdoFSiBttQ4g_KX90fG\",\"assigner\":{\"uid\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEOyq5p2RG2IcSgXqVNyWPrTJ7rtwzf5he5BvI/BZX2KaGvv3NoFnBMGCbNDvaRz+Cwu3xCHwrq2WtuZaX/zVgow==\",\"role\":\"http://www.w3.org/ns/odrl/2/assigner\"},\"uid\":\"b5c04c7d-19ed-4ba6-b6fc-34322110286d\",\"@context\":\"http://www.w3.org/ns/odrl.jsonld\",\"@type\":\"Set\",\"permission\":[{\"target\":\"azaiKcCEU9rtQDylXJdoFSiBttQ4g_KX90fG\",\"assignee\":{\"uid\":\"CONSUMER\",\"role\":\"http://www.w3.org/ns/odrl/2/assignee\"},\"action\":[\"http://www.w3.org/ns/odrl/2/use\"],\"constraint\":[{\"leftOperand\":\"http://www.w3.org/ns/odrl/2/deletion\",\"operator\":\"http://www.w3.org/ns/odrl/2/eq\",\"rightOperand\":\"after_use\"}]}]}",
+		"rdf:type": {
+			"@id": "simpl:ServicePolicy"
+		}
+	},
+	"simpl:slaAgreements": {
+		"simpl:slaAgreementsDocument": "Sla Agreements 1",
+		"rdf:type": {
+			"@id": "simpl:SlaAgreements"
+		}
+	},
+	"rdf:type": {
+		"@id": "simpl:InfrastructureOffering"
+	}
+}

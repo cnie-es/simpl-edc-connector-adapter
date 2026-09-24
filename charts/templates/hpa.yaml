@@ -1,0 +1,46 @@
+{{- /*
+  Horizontal Pod Autoscaler (HPA) template
+  ------------------------------------------------------------
+  This template creates an HPA resource for the Deployment only if:
+    - autoscaling.enabled = true
+    - resources.requests are defined in values.yaml (required for percentage-based targets)
+
+  Why the requests check?
+  - HPA with "Utilization" targets (percentage) computes against container "requests".
+  - If requests are missing (or zero), CPU/memory percentage targets are not valid.
+*/ -}}
+{{- if and .Values.autoscaling.enabled (hasKey .Values.resources "requests") }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/instance: {{ .Release.Name | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/component: api
+  annotations:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Release.Name }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+    {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+    {{- end }}
+{{- end }}
