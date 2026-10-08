@@ -8,7 +8,7 @@ ARG IMAGE_CREATED="1970-01-01T00:00:00Z"
 # point to the repository where the complete corresponding source code is available.
 LABEL org.opencontainers.image.title="edc-connector-adapter (CNIE-ES fork)" \
       org.opencontainers.image.description="Modified version of SIMPL edcconnectoradapter (upstream commit 0a9cd20), modified by the EDNEL-RIOJA project team for CNIE-ES between 2026-05-04 and 2026-09-10. See /licenses/NOTICE.EDNEL.md." \
-      org.opencontainers.image.version="1.14.3-edval" \
+      org.opencontainers.image.version="1.14.1-edval" \
       org.opencontainers.image.vendor="CNIE-ES" \
       org.opencontainers.image.licenses="EUPL-1.2" \
       org.opencontainers.image.source="https://github.com/cnie-es/simpl-edc-connector-adapter" \
